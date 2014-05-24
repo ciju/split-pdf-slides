@@ -3,24 +3,20 @@ import copy, getopt, sys, pprint
 
 __author__ = "ciju.ch3rian@gmail.com (ciju cherian)"
 
-try:
-    from pdf import *
-except:
-    from pyPdf import PdfFileWriter, PdfFileReader
-    
-res, cont, xobj, bbox = "/Resources", "/Contents", "/XObject", "/BBox"
+from pypdf2 import PdfFileWriter, PdfFileReader, PageObject, ContentStream, DictionaryObject, DecodedStreamObject, NameObject
+
 def page4eachXobj(self, spage):
     pl = {}
-    objlst = self[res].getObject()[xobj]
+    objlst = self["/Resources"].getObject()["/XObject"]
 
     for key in objlst.keys():
         page = copy.copy(spage)
-        r,x,c = [ NameObject(n) for n in (res, xobj, cont) ]
+        r,x,c = [ NameObject(n) for n in ("/Resources", "/XObject", "/Contents") ]
         page[r] = DictionaryObject()
         page[r][x] = DictionaryObject()
         page[r][x][key] = dict.__getitem__(objlst,key)
         try:
-            page.mediaBox = page[r][x][key][bbox]
+            page.mediaBox = page[r][x][key]["/BBox"]
         except: pass
         cs = DecodedStreamObject()
         cs.setData("q\n"+key+" Do\nQ")
@@ -28,7 +24,7 @@ def page4eachXobj(self, spage):
         pl[key] = page
 
     # return pages in the order of original /Contents description
-    stream = self[cont].getObject().getData().split()
+    stream = self["/Contents"].getObject().getData().split()
     return [pl[x] for x in stream if x in pl.keys()]
 
 def copy_page(page):
@@ -65,7 +61,7 @@ def split_slide(page, output, y, x, lst):
                                     , page, output))
     for i in lst:
         output.addPage(pl[int(i)-1])
-            
+
 
 def adv_split_slide(p, o):
     for i in p.page4eachXobj(p):
@@ -95,7 +91,7 @@ if __name__ == "__main__":
     if len(args) < 4 :
         print "Usage: "+sys.argv[0]+" <in.pdf> <out.pdf> <row> <col> <opt: slide order>"
         print """
-        Mention a slide order, if the result doesn't match the order of 
+        Mention a slide order, if the result doesn't match the order of
         sequence you want. Example, if the 1st slide is at position 3, 2nd
         at 2, 3rd at 1st, and 4th at 4th, slide order "3 2 1 4" would give
         the required result."""
@@ -114,4 +110,3 @@ if __name__ == "__main__":
         r, c, lst = int(args[2]), int(args[3]), args[4:]
         if (len(lst) != r*c): lst = range(1, r*c+1)
         slide_split(args[0], args[1], r, c, lst)
-
