@@ -1,7 +1,12 @@
 
 http://ciju.wordpress.com/2008/07/21/splitting-pdf-slides-4-up-to-1-up/
 
-You need pyPdf for this to work.
+Checkout the code, and run. Ex:
 
-Its been some time since I worked on this. Should still be
-working :)
+```
+git clone https://github.com/ciju/split-pdf-slides.git
+cd split-pdf-slides
+python split-pdf.py in.pdf out.pdf 2 2
+```
+
+Tested with Python 2.7
