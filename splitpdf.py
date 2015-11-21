@@ -70,14 +70,13 @@ def adv_split_slide(p, o):
 
 def ssplit(readf, writef, fn, *arg):
     out = PdfFileWriter()
-    inp = PdfFileReader(file(readf, "rb"))
+    inp = PdfFileReader(readf, False)
 
     for i in range(inp.getNumPages()):
         page = inp.getPage(i)
         fn(page, out, *arg)
 
-    outstream = file(writef, "wb")
-    out.write(outstream)
+    out.write(writef)
 
 def slide_split(readf, writef, x, y, lst):
     ssplit(readf, writef, split_slide, x, y, lst)
@@ -100,13 +99,16 @@ if __name__ == "__main__":
     try:    setattr(PageObject, 'page4eachXobj', page4eachXobj)
     except: pass
 
+    inFile = file(args[0], "rb")
+    outFile = file(args[1], "wb")
+
     try:
         # split using XObjects
-        adv_slide_split(args[0], args[1])
+        adv_slide_split(inFile, outFile)
         print "xobject way"
     except (KeyError, AttributeError):
         # split the crude way
         print "mediabox way"
         r, c, lst = int(args[2]), int(args[3]), args[4:]
         if (len(lst) != r*c): lst = range(1, r*c+1)
-        slide_split(args[0], args[1], r, c, lst)
+        slide_split(inFile, outFile, r, c, lst)
