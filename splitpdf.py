@@ -45,7 +45,7 @@ def get_points(l, u, s):
     for i in range(1, s+1): xl.append(i*(u-l)/s)
     return xl
 
-def split_slide(page, output, y, x, lst):
+def mediabox_slide_split(page, output, y, x, lst):
     minx, miny = page.mediaBox.lowerLeft
     maxx, maxy = page.mediaBox.upperRight
 
@@ -63,7 +63,7 @@ def split_slide(page, output, y, x, lst):
         output.addPage(pl[int(i)-1])
 
 
-def adv_split_slide(p, o):
+def try_xobject_slide_split(p, o):
     for i in p.page4eachXobj(p):
         o.addPage(i)
 
@@ -78,11 +78,11 @@ def ssplit(readf, writef, fn, *arg):
 
     out.write(writef)
 
-def slide_split(readf, writef, x, y, lst):
-    ssplit(readf, writef, split_slide, x, y, lst)
+def mediabox_pdf_split(readf, writef, x, y, lst):
+    ssplit(readf, writef, mediabox_slide_split, x, y, lst)
 
-def adv_slide_split(readf, writef):
-    ssplit(readf, writef, adv_split_slide)
+def xobject_pdf_split(readf, writef):
+    ssplit(readf, writef, try_xobject_slide_split)
 
 if __name__ == "__main__":
     opts, args = getopt.getopt(sys.argv[1:], "")
@@ -103,12 +103,8 @@ if __name__ == "__main__":
     outFile = file(args[1], "wb")
 
     try:
-        # split using XObjects
-        adv_slide_split(inFile, outFile)
-        print "xobject way"
+        xobject_pdf_split(inFile, outFile)
     except (KeyError, AttributeError):
-        # split the crude way
-        print "mediabox way"
         r, c, lst = int(args[2]), int(args[3]), args[4:]
         if (len(lst) != r*c): lst = range(1, r*c+1)
-        slide_split(inFile, outFile, r, c, lst)
+        mediabox_pdf_split(inFile, outFile, r, c, lst)
