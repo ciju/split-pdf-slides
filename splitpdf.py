@@ -5,9 +5,9 @@ __author__ = "ciju.ch3rian@gmail.com (ciju cherian)"
 
 from pypdf2 import PdfFileWriter, PdfFileReader, PageObject, ContentStream, DictionaryObject, DecodedStreamObject, NameObject
 
-def page4eachXobj(self, spage):
+def page4eachXobj(spage):
     pl = {}
-    objlst = self["/Resources"].getObject()["/XObject"]
+    objlst = spage["/Resources"].getObject()["/XObject"]
 
     for key in objlst.keys():
         page = copy.copy(spage)
@@ -24,7 +24,7 @@ def page4eachXobj(self, spage):
         pl[key] = page
 
     # return pages in the order of original /Contents description
-    stream = self["/Contents"].getObject().getData().split()
+    stream = spage["/Contents"].getObject().getData().split()
     return [pl[x] for x in stream if x in pl.keys()]
 
 def copy_page(page):
@@ -64,7 +64,7 @@ def mediabox_slide_split(page, output, y, x, lst):
 
 
 def try_xobject_slide_split(p, o):
-    for i in p.page4eachXobj(p):
+    for i in page4eachXobj(p):
         o.addPage(i)
 
 
@@ -95,9 +95,6 @@ if __name__ == "__main__":
         at 2, 3rd at 1st, and 4th at 4th, slide order "3 2 1 4" would give
         the required result."""
         sys.exit(0)
-
-    try:    setattr(PageObject, 'page4eachXobj', page4eachXobj)
-    except: pass
 
     inFile = file(args[0], "rb")
     outFile = file(args[1], "wb")
