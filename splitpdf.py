@@ -84,6 +84,13 @@ def mediabox_pdf_split(readf, writef, x, y, lst):
 def xobject_pdf_split(readf, writef):
     ssplit(readf, writef, try_xobject_slide_split)
 
+def split_pdf(readf, writef, r, c, lst):
+    try:
+        xobject_pdf_split(inFile, outFile)
+    except (KeyError, AttributeError):
+        if (len(lst) != r*c): lst = range(1, r*c+1)
+        mediabox_pdf_split(inFile, outFile, r, c, lst)
+
 if __name__ == "__main__":
     opts, args = getopt.getopt(sys.argv[1:], "")
 
@@ -99,9 +106,4 @@ if __name__ == "__main__":
     inFile = file(args[0], "rb")
     outFile = file(args[1], "wb")
 
-    try:
-        xobject_pdf_split(inFile, outFile)
-    except (KeyError, AttributeError):
-        r, c, lst = int(args[2]), int(args[3]), args[4:]
-        if (len(lst) != r*c): lst = range(1, r*c+1)
-        mediabox_pdf_split(inFile, outFile, r, c, lst)
+    split_pdf(inFile, outFile, int(args[2]), int(args[3]), args[4:]);
