@@ -1,5 +1,6 @@
 #!/usr/bin/python
-import copy, getopt, sys, pprint
+import copy, sys, pprint
+import argparse
 
 __author__ = "ciju.ch3rian@gmail.com (ciju cherian)"
 
@@ -92,18 +93,31 @@ def split_pdf(readf, writef, r, c, lst):
         mediabox_pdf_split(inFile, outFile, r, c, lst)
 
 if __name__ == "__main__":
-    opts, args = getopt.getopt(sys.argv[1:], "")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-o', default='out.pdf', help='Output file')
+    parser.add_argument('-i', required=True, help='Input file')
+    parser.add_argument('-m', '--mediabox', action='store_true', help='Split pdf using mediabox')
+    parser.add_argument('-s', '--size', type=int, nargs=2, help='Row and column size of the split')
+    parser.add_argument('--seq', type=int, nargs=argparse.REMAINDER, help='Sequence of the slides, in the input file')
 
-    if len(args) < 4 :
-        print "Usage: "+sys.argv[0]+" <in.pdf> <out.pdf> <row> <col> <opt: slide order>"
-        print """
-        Mention a slide order, if the result doesn't match the order of
-        sequence you want. Example, if the 1st slide is at position 3, 2nd
-        at 2, 3rd at 1st, and 4th at 4th, slide order "3 2 1 4" would give
-        the required result."""
+    args = parser.parse_args()
+
+    inFile = file(args.i, "rb")
+    outFile = file(args.o, "wb")
+
+    r, c = args.size
+    seq = args.seq or []
+
+    if not args.mediabox:
+        split_pdf(inFile, outFile, r, c, seq);
         sys.exit(0)
 
-    inFile = file(args[0], "rb")
-    outFile = file(args[1], "wb")
+    if args.mediabox and len(seq) == 0:
+        seq = range(1, r*c + 1)
 
-    split_pdf(inFile, outFile, int(args[2]), int(args[3]), args[4:]);
+    if args.mediabox and len(seq) != r*c:
+        print "Sequence doesn't span the rows and columns"
+        sys.exit(2)
+
+    print args.i, args.o, r, c, seq
+    mediabox_pdf_split(inFile, outFile, r, c, seq)
