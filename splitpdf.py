@@ -87,10 +87,10 @@ def xobject_pdf_split(readf, writef):
 
 def split_pdf(readf, writef, r, c, lst):
     try:
-        xobject_pdf_split(inFile, outFile)
+        xobject_pdf_split(readf, writef)
     except (KeyError, AttributeError):
         if (len(lst) != r*c): lst = range(1, r*c+1)
-        mediabox_pdf_split(inFile, outFile, r, c, lst)
+        mediabox_pdf_split(readf, writef, r, c, lst)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
