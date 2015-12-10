@@ -1,6 +1,3 @@
-
-http://ciju.wordpress.com/2008/07/21/splitting-pdf-slides-4-up-to-1-up/
-
 Checkout the code, and run. Ex:
 
 ```
