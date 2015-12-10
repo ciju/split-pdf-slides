@@ -40,7 +40,6 @@ def make_page(lx, ly, ux, uy, page, o):
     p.mediaBox.upperRight = (ux, uy)
     return p
 
-# range l, u divided into s+1 points.
 def get_points(l, u, s):
     xl = [l]
     for i in range(1, s+1): xl.append(i*(u-l)/s)
@@ -52,8 +51,6 @@ def mediabox_slide_split(page, output, y, x, lst):
 
     xl = get_points(minx, maxx, int(x)) # columns
     yl = get_points(miny, maxy, int(y)) # rows
-
-    yl.reverse()
 
     pl=[]
     for j in range(len(yl)-1):
