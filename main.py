@@ -16,14 +16,15 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-class FileUploadFormHandler(webapp2.RequestHandler):
+class GetUploadURL(webapp2.RequestHandler):
     def get(self):
-        # To upload files to the blobstore, the request method must be "POST"
-        # and enctype must be set to "multipart/form-data".
-        template = JINJA_ENVIRONMENT.get_template('index.html')
-        self.response.out.write(template.render({
-            'action_target': blobstore.create_upload_url('/upload')
-        }))
+        try:
+            self.response.headers['Content-Type'] = 'application/json'
+            self.response.out.write(json.dumps({
+                'url': blobstore.create_upload_url('/upload')
+            }))
+        except:
+            self.error(500)
 
 
 class FileUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
@@ -61,7 +62,7 @@ class ViewFileHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/', FileUploadFormHandler),
     ('/upload', FileUploadHandler),
+    ('/uploadURL', GetUploadURL),
     ('/file/([^/]+)?/([^/]+)?/([^/]+)?', ViewFileHandler),
 ], debug=True)
