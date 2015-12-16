@@ -14,7 +14,12 @@ handlers:
 - url: /styles
   static_dir: static/styles
 
-- url: .*
+# site root
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+
+- url: /.*
   script: main.app
 
 libraries:
@@ -25,4 +30,5 @@ libraries:
 
 skip_files:
 - ^node_modules/.*$
+- ^bower_components/.*$
 - ^(.*/)?.*\.py[co]$

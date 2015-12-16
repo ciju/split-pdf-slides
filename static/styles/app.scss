@@ -1,6 +1,104 @@
+@mixin radial-gradient($from, $to) {
+    background: -moz-radial-gradient(center, circle cover, $from 0%, $to 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $from), color-stop(100%, $to));
+    background: -webkit-radial-gradient(center, circle cover, $from 0%, $to 100%);
+    background: -o-radial-gradient(center, circle cover, $from 0%, $to 100%);
+    background: -ms-radial-gradient(center, circle cover, $from 0%, $to 100%);
+    background: radial-gradient(center, circle cover, $from 0%, $to 100%);
+    background-color: $from;
+}
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
 .col {
     width: 20px;
 }
 .row {
     padding: 2px;
+}
+
+.mask {
+   position: absolute;
+   display: block;
+   border: 1px solid brown;
+   background-color: #dbdbdb;
+   opacity: 0.5;
+   font-size: 20px;
+}
+
+.mask h3 {
+    height: 100%;
+    margin: 0 auto;
+    color: black;
+    text-align: center;
+}
+.mask h3::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.radial {
+    /* @include radial-gradient(#555A5F, #000); */
+    @include radial-gradient(#eee, rgba(47, 39, 39, 0.48));
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.op {
+    text-decoration: none;
+    color: #444;
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.upload-msg {
+    position: absolute;
+    z-index: 0;
+    h1 {
+        font-size: 40px;
+    }
+    @include centerer;
+}
+.drop-zone {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+    canvas {
+        border: 1px solid lightgray;
+    }
+}
+.preview {
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    z-index: 2;
+    @include centerer;
+}
+
+
+.content .dz-preview {
+    .dz-image, .dz-success-mark, .dz-error-mark {
+        display: none;
+    }
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
 }
