@@ -59,7 +59,7 @@ class ViewFileHandler(blobstore_handlers.BlobstoreDownloadHandler):
             split_pdf(bcontent, ws, r, c, nseq[1:])
             ws.seek(0)
             self.response.out.write(ws.read())
-
+            blobstore.delete(file_key)
 
 app = webapp2.WSGIApplication([
     ('/upload', FileUploadHandler),
