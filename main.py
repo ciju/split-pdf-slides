@@ -1,23 +1,7 @@
-# Copyright 2015 Google Inc. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import os
 import urllib
 
-from google.appengine.api import users
 from google.appengine.ext import blobstore
-from google.appengine.ext import ndb
 from google.appengine.ext.webapp import blobstore_handlers
 
 import webapp2
@@ -31,12 +15,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
-
-# This datastore model keeps track of which users uploaded which file.
-class UserFile(ndb.Model):
-    user = ndb.StringProperty()
-    blob_key = ndb.BlobKeyProperty()
-
 
 class FileUploadFormHandler(webapp2.RequestHandler):
     def get(self):
@@ -52,10 +30,6 @@ class FileUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         try:
             upload = self.get_uploads()[0]
-            user_file = UserFile(
-                user=users.get_current_user().user_id(),
-                blob_key=upload.key())
-            user_file.put()
 
             self.response.headers['Content-Type'] = 'application/json'
             obj = {
