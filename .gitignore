@@ -45,3 +45,7 @@ coverage.xml
 docs/_build/
 
 node_modules/
+
+static/js/bundle.js
+static/js/bundle.js.map
+bower_components/
