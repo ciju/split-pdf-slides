@@ -45,7 +45,7 @@ def get_points(l, u, s):
     for i in range(1, s+1): xl.append(i*(u-l)/s)
     return xl
 
-def mediabox_slide_split(page, output, y, x, lst):
+def mediabox_slide_split(page, output, x, y, lst):
     minx, miny = page.mediaBox.lowerLeft
     maxx, maxy = page.mediaBox.upperRight
 
@@ -53,8 +53,8 @@ def mediabox_slide_split(page, output, y, x, lst):
     yl = get_points(miny, maxy, int(y)) # rows
 
     pl=[]
-    for j in range(len(yl)-1):
-        for i in range(len(xl)-1):
+    for i in range(len(xl)-1):
+        for j in range(len(yl)-1):
             pl.append(make_page(xl[i], yl[j+1], xl[i+1], yl[j]\
                                     , page, output))
     for i in lst:
