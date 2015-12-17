@@ -10,8 +10,8 @@ require('FitText.js');
 // }
 
 export class RowColMask {
-  constructor(ele, rows, cols) {
-    this.$e = $(ele);
+  constructor(canvas, rows, cols) {
+    this.$canvas = $(canvas);
     this.rows = rows;
     this.cols = cols;
     this.seq = [];
@@ -22,7 +22,7 @@ export class RowColMask {
 
   addMaskContainer() {
     this.masks = $('<div class="masks">');
-    this.$e.parent().append(this.masks);
+    this.$canvas.parent().append(this.masks);
   }
 
   renderMask(row, col, dims) {
@@ -38,9 +38,9 @@ export class RowColMask {
   render() {
     var rows = this.rows || 2;
     var cols = this.cols || 2;
-    var offset = this.$e.offset();
-    var w = this.$e.width() / cols;
-    var h = this.$e.height() / rows;
+    var offset = this.$canvas.offset();
+    var w = this.$canvas.width() / cols;
+    var h = this.$canvas.height() / rows;
 
     for (let row=0; row < rows; row++) {
       for (let col=0; col < cols; col++) {
@@ -93,7 +93,7 @@ export class RowColMask {
           .on('click', '.op-minus', evt => this.removeCol())
           .on('click', '.op-plus', evt => this.addCol());
     var contorls = $('<div class="op-controls">').append(rowControl, colControl);
-    this.$e.parent().prepend(contorls);
+    this.$canvas.parent().prepend(contorls);
   }
 
   registerClickHandler() {
@@ -130,7 +130,7 @@ export class RowColMask {
 
   cleanup() {
     this.unregisterClickHandler();
-    this.$e.parent().find('.op-controls').remove();
+    this.$canvas.parent().find('.op-controls').remove();
     this.clearSeq();
     this.masks.remove();
   }
