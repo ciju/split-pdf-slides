@@ -23,3 +23,13 @@ export function fileToDataURIPromise(file) {
     reader.readAsDataURL(file);
   });
 }
+
+export let baseName = (name) => {
+  var parts = name.split('.');
+  parts.pop();
+  return parts.join('.');
+};
+
+export let extension = (name) => {
+  return name.split('.').pop();
+};

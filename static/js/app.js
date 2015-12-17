@@ -17,16 +17,10 @@ function setupEvents(dz) {
   var rcm;
   var pageRef;
 
-  dz.on('success', function (s, data) {
-    var farr = s.name.split('.');
-    farr.pop(); // extension
+  dz.on('success', function ({name: name}, {url: url}) {
+    var path = [url, utils.baseName(name) + '-slides.pdf', seq].join('/');
 
-    var parts = [
-      data.url,
-      farr.join('.') + '-slides.pdf',
-      seq
-    ];
-
+    // cleanup?
     rcm.cleanup();
     rcm = null;
     pageRef.cleanup();
@@ -34,7 +28,7 @@ function setupEvents(dz) {
     canvas.width = 0;
     canvas.height = 0;
 
-    window.open(parts.join('/'));
+    window.open(path);
   });
 
   dz.on('complete', function (file) {
@@ -42,7 +36,7 @@ function setupEvents(dz) {
   });
 
   dz.on('addedfile', function (file) {
-    if (file.name.split('.').pop() !== 'pdf') {
+    if (utils.extension(file.name) !== 'pdf') {
       console.log('not pdf');
       return;
     }
