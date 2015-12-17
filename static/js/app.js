@@ -19,6 +19,7 @@ function setupEvents(dz) {
 
   dz.on('success', function ({name: name}, {url: url}) {
     var path = [url, utils.baseName(name) + '-slides.pdf', seq].join('/');
+    utils.triggerDownload(path);
 
     // cleanup?
     rcm.cleanup();
@@ -27,8 +28,6 @@ function setupEvents(dz) {
     var canvas = document.getElementById('canvas');
     canvas.width = 0;
     canvas.height = 0;
-
-    window.open(path);
   });
 
   dz.on('complete', function (file) {

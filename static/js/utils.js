@@ -1,5 +1,7 @@
+var $ = require('jQuery');
 
-var BASE64_MARKER = ';base64,';
+const BASE64_MARKER = ';base64,';
+
 export function dataURIToBinary(dataURI) {
   var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
   var base64 = dataURI.substring(base64Index);
@@ -7,7 +9,7 @@ export function dataURIToBinary(dataURI) {
   var rawLength = raw.length;
   var array = new Uint8Array(new ArrayBuffer(rawLength));
 
-  for (var i = 0; i < rawLength; i++) {
+  for (let i = 0; i < rawLength; i++) {
     array[i] = raw.charCodeAt(i);
   }
 
@@ -32,4 +34,11 @@ export let baseName = (name) => {
 
 export let extension = (name) => {
   return name.split('.').pop();
+};
+
+export let triggerDownload = (path) => {
+  $('<iframe/>').attr({
+    src: path,
+    style: 'visibility:hidden;display:none'
+  }).appendTo('body');
 };
