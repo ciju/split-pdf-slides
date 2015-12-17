@@ -1,7 +1,6 @@
 var $ = require('jQuery');
 var bind = require('lodash/function/bind');
 var flatten = require('lodash/array/flatten');
-import debug from 'debug-decorator';
 
 require('FitText.js');
 
@@ -146,4 +145,3 @@ export class RowColMask {
     return [this.rows].concat(flatten(seq)).join(',');
   }
 }
-debug(RowColMask);
