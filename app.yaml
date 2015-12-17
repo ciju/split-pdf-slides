@@ -32,3 +32,4 @@ skip_files:
 - ^node_modules/.*$
 - ^bower_components/.*$
 - ^(.*/)?.*\.py[co]$
+- ^PyPDF2-repo/.*$

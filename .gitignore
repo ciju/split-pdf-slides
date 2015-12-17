@@ -49,3 +49,5 @@ node_modules/
 static/js/bundle.js
 static/js/bundle.js.map
 bower_components/
+files/
+PyPDF2-repo/
