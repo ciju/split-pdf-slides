@@ -1,7 +1,5 @@
 var $ = require('jQuery');
-var bind = require('lodash/function/bind');
-var flatten = require('lodash/array/flatten');
-
+var _ = require('lodash');
 require('FitText.js');
 
 // function fitText($el) {
@@ -141,6 +139,6 @@ export class RowColMask {
         seq[r][c] = this.seq.indexOf([r, c].join('-')) + 1;
       }
     }
-    return [this.rows].concat(flatten(seq)).join(',');
+    return [this.rows].concat(_.flatten(seq)).join(',');
   }
 }

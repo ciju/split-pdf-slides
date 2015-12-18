@@ -4,7 +4,7 @@ require('dropzone.css');
 require('pdfjs-dist/build/pdf.js');
 var $ = require('jQuery');
 var Promise = require('bluebird');
-var partial = require('lodash/function/partial');
+var _ = require('lodash');
 var utils = require('./utils');
 var Dropzone = require('dropzone.js');
 var {RowColMask} = require('./rowColMask');
@@ -47,7 +47,7 @@ class SplitPdfFile {
   setupPDFInteraction(file) {
     utils.fileToDataURIPromise(file)
       .then(utils.dataURIToBinary)
-      .then(partial(loadPDF, this.canvas))
+      .then(_.partial(loadPDF, this.canvas))
       .then(page => {
         this.pageRef = page;
         this.rcm = new RowColMask('canvas', 2, 2);
