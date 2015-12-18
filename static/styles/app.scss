@@ -65,11 +65,52 @@
 }
 .upload-msg {
     position: absolute;
-    z-index: 0;
+    z-index: 1;
     h1 {
-        font-size: 40px;
+        font-size: 30px;
+        text-align: center;
     }
     @include centerer;
+}
+
+.explanation-pdf-page {
+    display: inline-block;
+    @include centerer;
+}
+
+.explanation-vis {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.explanation-vis-step {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+}
+
+.explanation {
+    margin: 15px;
+    text-align: justify;
+    table {
+        border: 1px solid gray;
+    }
+    td {
+        padding: 0;
+        margin: 0;
+        width: 10px;
+        height: 10px;
+        border: 1px solid gray;
+    }
+}
+
+.upload-target {
+    width: 500px;
+    height: 200px;
+    background: white;
+    cursor: pointer;
+    border: 1px solid gray;
 }
 .drop-zone {
     width: 100%;
@@ -77,8 +118,7 @@
     position: absolute;
     margin: 0 auto;
     text-align: center;
-    cursor: pointer;
-    z-index: 1;
+    z-index: 0;
     canvas {
         border: 1px solid lightgray;
     }
@@ -101,4 +141,5 @@
 body {
     margin: 0;
     overflow: hidden;
+    color: #333;
 }

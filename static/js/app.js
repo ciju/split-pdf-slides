@@ -114,7 +114,8 @@ function loadPDF(canvas, pdfDoc) {
       parallelUploads: 1,
       uploadMultiple: false,
       acceptableFiles: 'application/pdf',
-      url: r.url
+      url: r.url,
+      clickable: '.j-upload-target'
     });
 
     var canvas = new PDFCanvas('canvas');

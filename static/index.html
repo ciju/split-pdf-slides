@@ -1,11 +1,52 @@
-<html>
+<html lang="en">
   <head>
-    <script src="/js/bundle.js"></script>
+    <script src="/js/bundle.js" type="text/javascript"></script>
+    <title>Convert 6/4/2-up slides to 1-up</title>
   </head>
   <body>
     <div class="content radial">
-      <div id="dropzone-click" class="upload-msg">
-        <h1>Upload a pdf.</h1>
+      <div class="upload-msg">
+        <div class="j-upload-target upload-target">
+          <h1>Upload a 6/4/2-up pdf slide.</h1>
+          <div class="explanation">
+            Converts pdf many slides on a page, to a pdf with each
+            slide on one page.
+            <div class="explanation-vis">
+              <div class="explanation-vis-step">
+              <table class="explanation-pdf-page">
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+              </div>
+              <div class="explanation-vis-step">
+              <span>=></span>
+              </div>
+
+              <div class="explanation-vis-step">
+              <div class="explanation-pdf-page">
+                <table>
+                  <tr><td></td></tr>
+                </table>
+                <table>
+                  <tr><td></td></tr>
+                </table>
+                <table>
+                  <tr><td></td></tr>
+                </table>
+                <table>
+                  <tr><td></td></tr>
+                </table>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="j-drop-zone-preview"></div>
       </div>
 
