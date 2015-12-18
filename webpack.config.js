@@ -12,7 +12,11 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     root: [path.join(__dirname, "bower_components")],
-    moduleDirectories: ['node_modules', 'bower_components']
+    moduleDirectories: ['node_modules', 'bower_components'],
+    alias: {
+      'dropzone.js': 'dropzone/dist/min/dropzone.min.js',
+      'dropzone.css': 'dropzone/dist/min/dropzone.min.css'
+    }
   },
   module: {
     loaders: [

@@ -1,12 +1,12 @@
-require('./../dropzone/dropzone.css');
 require('./../styles/app.scss');
+require('dropzone.css');
 
 require('pdfjs-dist/build/pdf.js');
 var $ = require('jQuery');
 var Promise = require('bluebird');
 var partial = require('lodash/function/partial');
 var utils = require('./utils');
-var Dropzone = require('./../dropzone/dropzone.js');
+var Dropzone = require('dropzone.js');
 var {RowColMask} = require('./rowColMask');
 
 class PDFCanvas {
