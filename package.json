@@ -1,41 +1,41 @@
 {
-  "name": "split-pdf-slides",
-  "version": "1.0.0",
-  "description": "6/4/2-up pdf to 1-up pdf",
-  "dependencies": {
-    "file-loader": "^0.8.5",
-    "lodash": "^3.10.1",
-    "pdfjs-dist": "^1.3.76",
-    "url-loader": "^0.5.7"
-  },
-  "devDependencies": {
-    "babel-core": "^6.3.15",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
-    "css-loader": "^0.23.0",
-    "debug-decorator": "0.0.9",
-    "node-sass": "^3.4.2",
-    "sass-loader": "^3.1.2",
-    "style-loader": "^0.13.0",
-    "webpack": "^1.12.9"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ciju/split-pdf-slides.git"
-  },
-  "keywords": [
-    "split",
-    "slides",
-    "pdf",
-    "6-up",
-    "4-up",
-    "2-up",
-    "1-up"
-  ],
-  "author": "ciju",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ciju/split-pdf-slides/issues"
-  },
-  "homepage": "https://github.com/ciju/split-pdf-slides#readme"
+    "name": "split-pdf-slides",
+    "version": "1.0.0",
+    "description": "6/4/2-up pdf to 1-up pdf",
+    "dependencies": {
+        "file-loader": "^0.8.5",
+        "lodash": "^3.10.1",
+        "pdfjs-dist": "^1.3.76",
+        "url-loader": "^0.5.7"
+    },
+    "devDependencies": {
+        "babel-core": "^6.3.15",
+        "babel-loader": "^6.2.0",
+        "babel-preset-es2015": "^6.3.13",
+        "css-loader": "^0.23.0",
+        "debug-decorator": "0.0.9",
+        "node-sass": "^3.4.2",
+        "sass-loader": "^3.1.2",
+        "style-loader": "^0.13.0",
+        "webpack": "^1.12.9"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ciju/split-pdf-slides.git"
+    },
+    "keywords": [
+        "split",
+        "slides",
+        "pdf",
+        "6-up",
+        "4-up",
+        "2-up",
+        "1-up"
+    ],
+    "author": "ciju",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ciju/split-pdf-slides/issues"
+    },
+    "homepage": "https://github.com/ciju/split-pdf-slides#readme"
 }
