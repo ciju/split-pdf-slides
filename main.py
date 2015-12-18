@@ -21,7 +21,7 @@ class GetUploadURL(webapp2.RequestHandler):
         try:
             self.response.headers['Content-Type'] = 'application/json'
             self.response.out.write(json.dumps({
-                'url': blobstore.create_upload_url('/upload')
+                'url': blobstore.create_upload_url('/api/upload')
             }))
         except:
             self.error(500)
@@ -62,7 +62,7 @@ class ViewFileHandler(blobstore_handlers.BlobstoreDownloadHandler):
             blobstore.delete(file_key)
 
 app = webapp2.WSGIApplication([
-    ('/upload', FileUploadHandler),
-    ('/uploadURL', GetUploadURL),
+    ('/api/upload', FileUploadHandler),
+    ('/api/uploadURL', GetUploadURL),
     ('/file/([^/]+)?/([^/]+)?/([^/]+)?', ViewFileHandler),
 ], debug=True)

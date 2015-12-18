@@ -36,7 +36,7 @@ class SplitPdfFile {
   }
 
   fetchUploadURL() {
-    return Promise.resolve($.getJSON('/uploadURL')).then(data => data.url);
+    return Promise.resolve($.getJSON('/api/uploadURL')).then(data => data.url);
   }
 
   onSeqFinalised() {
@@ -107,7 +107,7 @@ function loadPDF(canvas, pdfDoc) {
 }
 
 (() => {
-  $.getJSON('/uploadURL').done(r => {
+  $.getJSON('/api/uploadURL').done(r => {
     var dz = new Dropzone('.drop-zone', {
       previewsContainer: '.j-drop-zone-preview',
       autoProcessQueue: false,
