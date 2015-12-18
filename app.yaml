@@ -6,8 +6,7 @@ version: 1
 handlers:
 - url: /js
   static_dir: static/js
-- url: /pdfjs
-  static_dir: static/pdfjs
+
 - url: /files
   static_dir: files
 

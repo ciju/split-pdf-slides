@@ -1,9 +1,7 @@
 require('./../dropzone/dropzone.css');
 require('./../styles/app.scss');
 
-// would have to make it promisable?
-require('./../pdfjs/pdf.js');
-
+require('pdfjs-dist/build/pdf.js');
 var $ = require('jQuery');
 var Promise = require('bluebird');
 var partial = require('lodash/function/partial');
@@ -94,7 +92,7 @@ class SplitPdfFile {
 }
 
 function loadPDF(canvas, pdfDoc) {
-  PDFJS.workerSrc = "./pdfjs/pdf.worker.js";
+  PDFJS.workerSrc = require("pdfjs-dist/build/pdf.worker.js");
   return PDFJS
     .getDocument(pdfDoc)
     .then(pdf => pdf.getPage(1))

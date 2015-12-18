@@ -53,7 +53,6 @@ export class RowColMask {
     }
 
     this.registerClickHandler();
-
   }
 
   controlDiv(type) {
