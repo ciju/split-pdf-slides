@@ -17,7 +17,16 @@
         "node-sass": "^3.4.2",
         "sass-loader": "^3.1.2",
         "style-loader": "^0.13.0",
-        "webpack": "^1.12.9"
+        "webpack": "^1.12.9",
+        "webpack-dev-server": "^1.14.0"
+    },
+    "scripts": {
+        "package": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p",
+        "push": "appcfg.py -A split-4up-slides update ./",
+        "webpack": "webpack --profile --display-reasons --display-modules --progress --colors --watch",
+        "deploy": "npm run package & npm run push",
+        "serve-fe": "webpack-dev-server --content-base static --colors --watch",
+        "app-server": "dev_appserver.py ./ --port=8081"
     },
     "repository": {
         "type": "git",

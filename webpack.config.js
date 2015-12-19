@@ -1,14 +1,31 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var isProd = process.env.NODE_ENV === 'production';
+
+// http://www.jonathan-petitcolas.com/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html
+function getEntrySources(sources) {
+    if (!isProd) {
+        sources.push('webpack-dev-server/client?http://localhost:8080');
+    }
+
+    return sources;
+}
+
 module.exports = {
-  entry: "./static/js/app.js",
+  addVendor: function (name, path) {
+    this.resolve.alias[name] = path;
+    this.module.noParse.push(new RegExp(path));
+  },
+  entry: {
+    main: getEntrySources(["./static/js/app.js"])
+  },
   output: {
     path: __dirname + '/static/dist/js/',
     filename: "bundle.js",
     publicPath: '/js/'
   },
-  debug: true,
+  debug: false,
   devtool: 'source-map',
   resolve: {
     root: [path.join(__dirname, "bower_components")],
@@ -34,5 +51,34 @@ module.exports = {
       $: "jQuery/dist/jquery",
       jQuery: "jQuery/dist/jquery"
     })
-  ]
+  ],
+
+  devServer: {
+    proxy: {
+      '/index.html': {
+        target: 'http://localhost:8081',
+        secure: false
+      },
+      '/api/*': {
+        target: 'http://localhost:8081',
+        secure: false
+      },
+      '/file/*': {
+        target: 'http://localhost:8081',
+        secure: false
+      },
+      '/_ah/*': {
+        target: 'http://localhost:8081',
+        secure: false
+      }
+    }
+  }
 };
+
+if (isProd) {
+  module.exports.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: false
+    })
+  );
+}
