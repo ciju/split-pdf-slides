@@ -9,7 +9,7 @@ import jinja2
 import json
 
 from cStringIO import StringIO
-from splitpdf import split_pdf
+from splitpdf import mediabox_pdf_split
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -56,7 +56,7 @@ class ViewFileHandler(blobstore_handlers.BlobstoreDownloadHandler):
             nseq = [int(i) for i in seq.split(',')]
             r = int(nseq[0])
             c = len(nseq[1:]) / r
-            split_pdf(bcontent, ws, r, c, nseq[1:])
+            mediabox_pdf_split(bcontent, ws, r, c, nseq[1:])
             ws.seek(0)
             self.response.out.write(ws.read())
             blobstore.delete(file_key)
