@@ -45,6 +45,16 @@ def get_points(l, u, s):
     for i in range(1, s+1): xl.append(i*(u-l)/s)
     return xl
 
+def split_list(alist, wanted_parts=1):
+    length = len(alist)
+    return [ alist[i*length // wanted_parts: (i+1)*length // wanted_parts]
+             for i in range(wanted_parts) ]
+
+def rotateListOfList(ll):
+    lst = zip(*ll)
+    lst.reverse()
+    return [item for sublist in lst for item in sublist]
+
 def mediabox_slide_split(page, output, x, y, lst):
     minx, miny = page.mediaBox.lowerLeft
     maxx, maxy = page.mediaBox.upperRight
@@ -52,11 +62,17 @@ def mediabox_slide_split(page, output, x, y, lst):
     xl = get_points(minx, maxx, int(x)) # columns
     yl = get_points(miny, maxy, int(y)) # rows
 
+    yl.reverse()
+
     pl=[]
-    for i in range(len(xl)-1):
-        for j in range(len(yl)-1):
+    for j in range(len(yl)-1):
+        for i in range(len(xl)-1):
             pl.append(make_page(xl[i], yl[j+1], xl[i+1], yl[j]\
                                     , page, output))
+
+    if page["/Rotate"] == 90:
+        lst = rotateListOfList( split_list(lst, y) )
+
     for i in lst:
         output.addPage(pl[int(i)-1])
 
