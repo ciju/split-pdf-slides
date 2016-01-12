@@ -59,7 +59,7 @@ class SplitPdfFile {
         this.rcm.registerSeqCompleteCb(this.onSeqFinalised.bind(this));
       }).catch(err => {
         console.log('error happened');
-      });7
+      });
   }
 
   reset() {
@@ -82,13 +82,13 @@ class SplitPdfFile {
       // state should tell where the error happened.
       console.log('error happened');
     });
-    this.dz.on('complete', (file) => {
+    this.dz.on('complete', file => {
       this.dz.removeFile(file);
     });
     this.dz.on('uploadprogress', (file, progress) => {
       console.log('progress', progress);
     });
-    this.dz.on('addedfile', (file) => {
+    this.dz.on('addedfile', file => {
       file.previewElement = Dropzone.createElement(this.dz.options.previewTemplate);
       if (utils.extension(file.name) !== 'pdf') {
         console.log('not pdf');
