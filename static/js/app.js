@@ -125,21 +125,30 @@ function loadPDF(canvas, pdfDoc) {
 
 Dropzone.autoDiscover = false;
 
-$.getJSON('/api/uploadURL').done(r => {
-  $('.j-upload-target').html(messageTmpl);
+var initApp = (uploadURL) => {
+  var canvas = new PDFCanvas('canvas');
+  $(() => canvas.reset());
+
   var dz = new Dropzone('.drop-zone', {
     previewsContainer: '.j-drop-zone-preview',
     previewTemplate: previewTmpl,
     autoProcessQueue: false,
     uploadMultiple: false,
     acceptableFiles: 'application/pdf',
-    url: r.url,
+    url: uploadURL,
     clickable: '.j-upload-target'
   });
 
-  var canvas = new PDFCanvas('canvas');
-  $(() => canvas.reset());
-
   var pd = new SplitPdfFile(dz, canvas);
   pd.setupEvents();
+};
+
+$(() => {
+  $('.j-upload-target').html(messageTmpl);
+
+  $.getJSON('/api/uploadURL')
+    .done(initApp)
+    .fail(() => {
+      console.log('Upload URL error');
+    });
 });
