@@ -136,6 +136,10 @@
     @include centerer;
 }
 
+.spinner {
+    @include centerer;
+}
+
 
 .content .dz-preview {
     .dz-image, .dz-success-mark, .dz-error-mark {

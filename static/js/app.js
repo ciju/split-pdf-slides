@@ -2,6 +2,9 @@ require('./../styles/app.scss');
 require('dropzone.css');
 
 require('pdfjs-dist/build/pdf.js');
+
+var messageTmpl = require('./../message-tmpl.html');
+var previewTmpl = require('./../preview-tmpl.html');
 var $ = require('jQuery');
 var Promise = require('bluebird');
 var _ = require('lodash');
@@ -42,10 +45,11 @@ class SplitPdfFile {
   onSeqFinalised() {
     this.seq = this.rcm.serialize();
     this.dz.processQueue();
+    // remove the rcm, and show progress of upload.
   }
 
   setupPDFInteraction(file) {
-    utils.fileToDataURIPromise(file)
+    return utils.fileToDataURIPromise(file)
       .then(utils.dataURIToBinary)
       .then(_.partial(loadPDF, this.canvas))
       .then(page => {
@@ -53,10 +57,13 @@ class SplitPdfFile {
         this.rcm = new RowColMask('canvas', 2, 2);
         this.rcm.render();
         this.rcm.registerSeqCompleteCb(this.onSeqFinalised.bind(this));
-      });
+      }).catch(err => {
+        console.log('error happened');
+      });7
   }
 
   reset() {
+    // show the initial template with message.
     this.rcm.cleanup();
     this.rcm = null;
     this.pageRef.cleanup();
@@ -71,10 +78,18 @@ class SplitPdfFile {
 
       this.reset();
     });
+    this.dz.on('error', file => {
+      // state should tell where the error happened.
+      console.log('error happened');
+    });
     this.dz.on('complete', (file) => {
       this.dz.removeFile(file);
     });
+    this.dz.on('uploadprogress', (file, progress) => {
+      console.log('progress', progress);
+    });
     this.dz.on('addedfile', (file) => {
+      file.previewElement = Dropzone.createElement(this.dz.options.previewTemplate);
       if (utils.extension(file.name) !== 'pdf') {
         console.log('not pdf');
         return;
@@ -86,7 +101,9 @@ class SplitPdfFile {
         console.log('uploadURL fetch failed', err);
       });
 
-      this.setupPDFInteraction(file);
+      this.setupPDFInteraction(file).then(() => {
+        // new state.
+      });
     });
   }
 }
@@ -106,22 +123,23 @@ function loadPDF(canvas, pdfDoc) {
     });
 }
 
-(() => {
-  $.getJSON('/api/uploadURL').done(r => {
-    var dz = new Dropzone('.drop-zone', {
-      previewsContainer: '.j-drop-zone-preview',
-      autoProcessQueue: false,
-      parallelUploads: 1,
-      uploadMultiple: false,
-      acceptableFiles: 'application/pdf',
-      url: r.url,
-      clickable: '.j-upload-target'
-    });
+Dropzone.autoDiscover = false;
 
-    var canvas = new PDFCanvas('canvas');
-    $(() => canvas.reset());
-
-    var pd = new SplitPdfFile(dz, canvas);
-    pd.setupEvents();
+$.getJSON('/api/uploadURL').done(r => {
+  $('.j-upload-target').html(messageTmpl);
+  var dz = new Dropzone('.drop-zone', {
+    previewsContainer: '.j-drop-zone-preview',
+    previewTemplate: previewTmpl,
+    autoProcessQueue: false,
+    uploadMultiple: false,
+    acceptableFiles: 'application/pdf',
+    url: r.url,
+    clickable: '.j-upload-target'
   });
-})();
+
+  var canvas = new PDFCanvas('canvas');
+  $(() => canvas.reset());
+
+  var pd = new SplitPdfFile(dz, canvas);
+  pd.setupEvents();
+});

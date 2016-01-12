@@ -37,6 +37,7 @@ module.exports = {
   },
   module: {
     loaders: [
+      { test: /\.html$/, loader: "html"},
       { test: /\.css$/, loader: "style!css" },
       { test: /\.scss$/, loaders: ["style", "css", "sass"] },
       { test: /pdf\.worker\.js$/, loader: "url-loader?limit=10000&name=pdf.worker.js" },
