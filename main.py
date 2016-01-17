@@ -56,7 +56,7 @@ class ViewFileHandler(blobstore_handlers.BlobstoreDownloadHandler):
             nseq = [int(i) for i in seq.split(',')]
             r = int(nseq[0])
             c = len(nseq[1:]) / r
-            mediabox_pdf_split(bcontent, ws, r, c, nseq[1:])
+            mediabox_pdf_split(bcontent, ws, c, r, nseq[1:])
             ws.seek(0)
             self.response.out.write(ws.read())
             blobstore.delete(file_key)
