@@ -69,6 +69,7 @@ class SplitPdfFile {
     this.rcm = null;
     this.pageRef.cleanup();
     this.canvas.reset();
+    $('.canvas-wrapper').hide();
   }
 
   setupEvents() {
@@ -122,7 +123,10 @@ function loadPDF(canvas, pdfDoc) {
     .then(pdf => pdf.getPage(1))
     .then(page => {
       var viewport = page.getViewport(1);
+      var scale = ($('.canvas-wrapper').width() - 20) / viewport.width;
+      viewport = page.getViewport(scale);
 
+      $('.canvas-wrapper').show();
       return page.render({
         canvasContext: canvas.setup(viewport),
         viewport: viewport
@@ -134,7 +138,6 @@ Dropzone.autoDiscover = false;
 
 var initApp = (uploadURL) => {
   var canvas = new PDFCanvas('canvas');
-  $(() => canvas.reset());
 
   var dz = new Dropzone('.drop-zone', {
     previewsContainer: '.j-drop-zone-preview',

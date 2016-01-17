@@ -90,7 +90,7 @@ export class RowColMask {
           .on('click', '.op-plus', evt => this.addCol());
     var msg = "<div class='message'>Click on the squares in the sequence of the slides you want them to be split into.</div>";
     var contorls = $('<div class="op-controls">').append(msg).append(rowControl, colControl);
-    this.$canvas.parent().prepend(contorls);
+    this.$canvas.parents('.preview').prepend(contorls);
   }
 
   registerClickHandler() {
@@ -133,7 +133,7 @@ export class RowColMask {
 
   cleanup() {
     this.unregisterClickHandler();
-    this.$canvas.parent().find('.op-controls').remove();
+    this.$canvas.parents('.preview').find('.op-controls').remove();
     this.clearSeq();
     this.masks.remove();
   }
