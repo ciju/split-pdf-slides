@@ -15,6 +15,17 @@
   transform: translate(-50%, -50%);
 }
 
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
 a {
     color: #607D8B;
     text-decoration: none;
@@ -82,17 +93,6 @@ a {
     width: 100%;
     height: 100%;
     position: absolute;
-}
-
-@mixin font-smoothing($value: antialiased) {
-  @if $value == antialiased {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  @else {
-    -webkit-font-smoothing: subpixel-antialiased;
-    -moz-osx-font-smoothing: auto;
-  }
 }
 
 .op {
