@@ -88,22 +88,29 @@ export class RowColMask {
     var colControl = this.controlDiv('col')
           .on('click', '.op-minus', evt => this.removeCol())
           .on('click', '.op-plus', evt => this.addCol());
-    var contorls = $('<div class="op-controls">').append(rowControl, colControl);
+    var msg = "<div class='message'>Click on the squares in the sequence of the slides you want them to be split into.</div>";
+    var contorls = $('<div class="op-controls">').append(msg).append(rowControl, colControl);
     this.$canvas.parent().prepend(contorls);
   }
 
   registerClickHandler() {
     var that = this;
     this.masks.on('click', '.mask', function () {
-      that.addToSeq($(this));
+      var $e = $(this);
+      var slideSeq = [$e.data('row'), $e.data('col')].join('-');
+
+      if (_.include(that.seq, slideSeq)) {
+        return;
+      }
+      that.addToSeq($e, slideSeq);
     });
   }
   unregisterClickHandler() {
     this.masks.off();
   }
 
-  addToSeq($e) {
-    this.seq.push([$e.data('row'), $e.data('col')].join('-'));
+  addToSeq($e, slideSeq) {
+    this.seq.push(slideSeq);
     $e.html(`<h3>${this.seq.length}</h3>`);
     $e.find('h3').fitText(0.5);
 
