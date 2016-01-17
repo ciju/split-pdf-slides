@@ -70,8 +70,9 @@ def mediabox_slide_split(page, output, x, y, lst):
             pl.append(make_page(xl[i], yl[j+1], xl[i+1], yl[j]\
                                     , page, output))
 
-    if page["/Rotate"] == 90:
-        lst = rotateListOfList( split_list(lst, y) )
+    if "/Rotate" in page:
+        if page["/Rotate"] == 90:
+            lst = rotateListOfList( split_list(lst, y) )
 
     for i in lst:
         output.addPage(pl[int(i)-1])
