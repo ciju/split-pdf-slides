@@ -144,12 +144,51 @@ a {
     @include centerer;
 }
 
-.spinner {
-    @include centerer;
-}
-
-
 .content .dz-preview {
+    position: relative;
+    display: inline-block;
+    width: 600px;               /*todo*/
+    vertical-align: top;
+    min-height: 30px;
+
+    .dz-progress {
+        display: block;
+        border: 1px solid #aaa;
+        height: 15px;
+
+        opacity: 1;
+        z-index: 1000;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        background: rgba(255,255,255,0.9);
+        -webkit-transform: scale(1);
+        border-radius: 8px;
+        overflow: hidden;
+
+        .dz-upload {
+        /*     background: #333; */
+        /*     background: linear-gradient(to bottom, #666, #444); */
+        /*     position: absolute; */
+        /*     top: 0; */
+        /*     left: 0; */
+        /*     bottom: 0; */
+        /*     width: 0; */
+            -webkit-transition: width 300ms ease-in-out;
+            -moz-transition: width 300ms ease-in-out;
+            -ms-transition: width 300ms ease-in-out;
+            -o-transition: width 300ms ease-in-out;
+            transition: width 300ms ease-in-out;
+        }
+
+        .dz-upload {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: green;
+        }
+    }
+
     .dz-image, .dz-success-mark, .dz-error-mark {
         display: none;
     }

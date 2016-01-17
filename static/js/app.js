@@ -45,6 +45,7 @@ class SplitPdfFile {
   onSeqFinalised() {
     this.seq = this.rcm.serialize();
     this.dz.processQueue();
+    this.reset();
     // remove the rcm, and show progress of upload.
   }
 
@@ -64,7 +65,7 @@ class SplitPdfFile {
 
   reset() {
     // show the initial template with message.
-    this.rcm.cleanup();
+    this.rcm && this.rcm.cleanup();
     this.rcm = null;
     this.pageRef.cleanup();
     this.canvas.reset();
@@ -77,6 +78,8 @@ class SplitPdfFile {
       utils.triggerDownload(path);
 
       this.reset();
+      $('.j-upload-target').show();
+      $('.j-drop-zone-preview').html('');
     });
     this.dz.on('error', file => {
       // state should tell where the error happened.
@@ -86,9 +89,12 @@ class SplitPdfFile {
       this.dz.removeFile(file);
     });
     this.dz.on('uploadprogress', (file, progress) => {
-      console.log('progress', progress);
+      $('.j-drop-zone-preview .dz-upload')
+        .width(progress + '%');
     });
     this.dz.on('addedfile', file => {
+      // show preparing pdf preview state.
+      $('.j-upload-target').hide();
       file.previewElement = Dropzone.createElement(this.dz.options.previewTemplate);
       if (utils.extension(file.name) !== 'pdf') {
         console.log('not pdf');
@@ -102,7 +108,8 @@ class SplitPdfFile {
       });
 
       this.setupPDFInteraction(file).then(() => {
-        // new state.
+        $('.j-drop-zone-preview .dz-progress').show();
+        $('.j-pdf-preview-msg').hide();
       });
     });
   }
