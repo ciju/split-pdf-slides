@@ -42,8 +42,8 @@ export class RowColMask {
     for (let row=0; row < rows; row++) {
       for (let col=0; col < cols; col++) {
         this.renderMask(row, col, {
-          width: w,
-          height: h,
+          width: w - 20,
+          height: h - 20,
           top: offset.top + h * row,
           left: offset.left + w * col
         });

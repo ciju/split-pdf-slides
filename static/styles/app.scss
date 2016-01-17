@@ -23,6 +23,10 @@ a {
     }
 }
 
+.as_link {
+    color: #424242;
+}
+
 
 .col {
     width: 20px;
@@ -31,13 +35,31 @@ a {
     padding: 2px;
 }
 
+#canvas {
+   -webkit-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.49);
+   -moz-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.49);
+   box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.49);
+}
 .mask {
    position: absolute;
    display: block;
-   border: 1px solid brown;
+   border: 10px solid #607D8B;
+   margin: 10px;
    background-color: #dbdbdb;
    opacity: 0.5;
    font-size: 20px;
+   &:hover {
+       background-color: #B9B9B9;
+   }
+   &:before {
+       border: 1px solid #000;
+       content: "";
+       position: absolute;
+       top: -10px;
+       bottom: -10px;
+       left: -10px;
+       right: -10px;
+   }
 }
 
 .mask h3 {
@@ -55,10 +77,22 @@ a {
 
 .radial {
     /* @include radial-gradient(#555A5F, #000); */
-    @include radial-gradient(#eee, rgba(47, 39, 39, 0.48));
+    /* @include radial-gradient(#eee, rgba(47, 39, 39, 0.48)); */
+    @include radial-gradient(#F3F4F5, rgba(47, 39, 39, 0.48));
     width: 100%;
     height: 100%;
     position: absolute;
+}
+
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
 }
 
 .op {
@@ -110,8 +144,8 @@ a {
         margin: 0;
         width: 10px;
         height: 10px;
-        border: 1px solid gray;
-        background-color: gray;
+        border: 1px solid #607D8B;
+        background-color: #607D8B;
     }
 }
 
@@ -123,7 +157,8 @@ a {
     width: 600px;
     background: white;
     cursor: pointer;
-    border: 1px solid #ddd;
+    border: 10px solid #607D8B;
+    padding: 10px 0;
 }
 .drop-zone {
     width: 100%;
@@ -197,5 +232,6 @@ a {
 body {
     margin: 0;
     overflow: hidden;
-    color: #333;
+    color: #555;
+    @include font-smoothing();
 }
