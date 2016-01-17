@@ -15,6 +15,14 @@
   transform: translate(-50%, -50%);
 }
 
+a {
+    color: #607D8B;
+    text-decoration: none;
+    &:hover {
+        color: #333;
+    }
+}
+
 
 .col {
     width: 20px;
