@@ -44,7 +44,7 @@ export class RowColMask {
         this.renderMask(row, col, {
           width: w - 20,
           height: h - 20,
-          top: offset.top + h * row,
+          top: $('.canvas-wrapper').scrollTop() + offset.top + h * row,
           left: offset.left + w * col
         });
       }
@@ -54,7 +54,7 @@ export class RowColMask {
   }
 
   controlDiv(type) {
-    return $(`<div class="controls ${type}-control">${type} count: <a class="op op-minus" href="javascript:;">-</a> | <a class="op op-plus" href="javascript:;">+</a></div>`);
+    return $(`<div class="controls ${type}-control">${type}s: <a class="op op-minus" href="javascript:;">remove</a> | <a class="op op-plus" href="javascript:;">add</a></div>`);
   }
   reRender() {
     this.cleanup();
