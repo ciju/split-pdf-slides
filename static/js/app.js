@@ -46,6 +46,7 @@ class SplitPdfFile {
     this.seq = this.rcm.serialize();
     this.dz.processQueue();
     this.reset();
+    $('.j-drop-zone-preview .dz-progress').show();
     // remove the rcm, and show progress of upload.
   }
 
@@ -109,7 +110,6 @@ class SplitPdfFile {
       });
 
       this.setupPDFInteraction(file).then(() => {
-        $('.j-drop-zone-preview .dz-progress').show();
         $('.j-pdf-preview-msg').hide();
       });
     });
