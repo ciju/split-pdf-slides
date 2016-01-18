@@ -88,7 +88,7 @@ export class RowColMask {
     var colControl = this.controlDiv('col')
           .on('click', '.op-minus', evt => this.removeCol())
           .on('click', '.op-plus', evt => this.addCol());
-    var msg = "<div class='message'>Click on the squares in the sequence of the slides you want them to be split into.</div>";
+    var msg = "<div class='message'>Click on the squares with <span class='sqr-border'></span> colored borders. Click them in the sequence of the slides, you want them to be split into. Add/remove rows and columns below.</div>";
     var contorls = $('<div class="op-controls">').append(msg).append(rowControl, colControl);
     this.$canvas.parents('.preview').prepend(contorls);
   }

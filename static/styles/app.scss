@@ -1,3 +1,5 @@
+$border-color: #607D8B;
+
 @mixin radial-gradient($from, $to) {
     background: -moz-radial-gradient(center, circle cover, $from 0%, $to 100%);
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $from), color-stop(100%, $to));
@@ -27,7 +29,7 @@
 }
 
 a {
-    color: #607D8B;
+    color: $border-color;
     text-decoration: none;
     &:hover {
         color: #333;
@@ -61,7 +63,7 @@ a {
 .mask {
    position: absolute;
    display: block;
-   border: 10px solid #607D8B;
+   border: 10px solid $border-color;
    margin: 10px;
    background-color: #dbdbdb;
    opacity: 0.5;
@@ -151,8 +153,8 @@ a {
         margin: 0;
         width: 10px;
         height: 10px;
-        border: 1px solid #607D8B;
-        background-color: #607D8B;
+        border: 1px solid $border-color;
+        background-color: $border-color;
     }
 }
 
@@ -164,7 +166,7 @@ a {
     width: 600px;
     background: white;
     cursor: pointer;
-    border: 10px solid #607D8B;
+    border: 10px solid $border-color;
     padding: 10px 0;
 }
 .drop-zone {
@@ -179,11 +181,18 @@ a {
     }
 }
 .preview {
-    font-size: 30px;
+    font-size: 20px;
     color: rgba(0, 0, 0, 0.3);
     position: absolute;
     z-index: 2;
     @include centerer;
+}
+
+.sqr-border {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background-color: #9EA9AF;
 }
 
 .content .dz-preview {
