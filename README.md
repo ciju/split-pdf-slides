@@ -6,8 +6,9 @@ ex:
 [Probability and Statistics - Sam Roweis (1up)](https://github.com/ciju/split-pdf-slides/blob/master/static%2Fsample%2Fprobx-slides.pdf).
 
 #usage
-You can try the web app at [](https://split-4up-slides.appspot.com/).
-If you prefer command line app, checkout the code, and run. Ex:
+You can try the web app at [appspot](https://split-4up-slides.appspot.com/).
+
+Or if you prefer command line app, checkout the code, and run. Ex:
 
 ```
 git clone https://github.com/ciju/split-pdf-slides.git
